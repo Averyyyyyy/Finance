@@ -2,6 +2,8 @@
 
 #importing needed functions
 from sign_in import sign_in
+from incomes_and_expenses import *
+
 
 #main function
 def main():
@@ -22,10 +24,10 @@ def main():
 
             #if the user wants to go to incomes
             if financechoice == "1":
-                incomes()
+                incomes_maker()
             #if the user wants to go to expenses
             elif financechoice == "2":
-                expenses()
+                expenses_maker()
             #if the user wants to go to budgeting
             elif financechoice == "3":
                 budgeting()
@@ -63,7 +65,7 @@ def main():
             #if the user's input is invalid
             else:
                 print("Invalid input!")
-                
+
     #main loop
     while True:
         #main frame choice
