@@ -1,9 +1,9 @@
 #Samuel Andelin, Personal Finances
 
 #importing needed functions
-from sign_in import sign_in
-from incomes_and_expenses import *
-
+from sign_in import *
+from incomes import *
+from expenses import *
 
 #main function
 def main():

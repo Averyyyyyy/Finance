@@ -121,6 +121,8 @@ def sign_in():
                     with open("login_info.txt", "a") as file:
                         file.write("\n")
                         file.write(username+":"+password)
+                    with open("info.csv", "a") as file:
+                        file.write("ASHSHSJSGJDJDJGDJDJDJGd")
                     break
 
                 #if passwords don't match, loop back
