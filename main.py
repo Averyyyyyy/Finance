@@ -1,7 +1,7 @@
 #Samuel Andelin, Personal Finances
 
 #importing needed functions
-from sign_in import *
+from sign_in import * 
 from incomes import *
 from expenses import *
 
