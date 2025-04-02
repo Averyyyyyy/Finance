@@ -16,14 +16,18 @@
 #         expense_timeframe equals Input
         
 #         expense equals {
-#             "source": expense_source,
+#             "category": expense_source,
 #             "amount": expense_amount,
-#             "time": expense_timeframe,
+#             "date": expense_timeframe,
 #             "cap": NULL
 #         }
         
 #         Append expense to expenses
 #     End For
 
-#     Return expenses to averys save function
+#     Return expenses to averys save function 2
 # End the function
+
+
+
+[]

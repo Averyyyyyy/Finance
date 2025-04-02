@@ -22,13 +22,13 @@ def incomes_maker():
     for number in range(income_sources):
 #         Display "Enter income source name:"
 #         income_source equals Input
-        income_source = input("Enter income source name:")
+        income_date = input("Enter the date that you earned (example: 1/5 (month)/(day) ): ")
         
 #         Display "Enter the amount this income earns:"
 #         income_amount equals Input
         while True:
             try:
-                income_amount = float(input("Enter the amount this income earns: "))
+                income_source = input("Enter the source of where you got this income: ")
                 break
             except:
                 print("That is not a number")
@@ -38,7 +38,7 @@ def incomes_maker():
 #         income_timeframe equals Input
         while True:
             try:
-                income_timeframe = int(input("How often do you earn this amount? (Enter days, 0 if it is a one time thing): "))
+                income_amount = float(input("Enter the amount that it earned: "))
                 break
             except:
                 print("That is not a number")
@@ -53,7 +53,7 @@ def incomes_maker():
             "amount": income_amount,
 
 #             "time": income_timeframe
-            "time": income_timeframe
+            "date": income_date
 
 #         }
         }
@@ -63,7 +63,7 @@ def incomes_maker():
 
 #     End For
 # Run Averys Function
-    saving(incomes)
+    saving(incomes, 1)
 
 # End the function
     return incomes
