@@ -1,6 +1,6 @@
 #Alex Anderson, Income Tracking
 
-from storing import saving
+from storing import load_user_data
 from datetime import datetime
 import csv
 import numpy as np
@@ -67,7 +67,7 @@ def incomes_maker():
 
 #     End For
 # Run Averys Function
-    saving(incomes)
+    load_user_data(incomes)
 
 # End the function
     return incomes
@@ -81,6 +81,7 @@ def line_graph():
     with open("info.csv", "r") as file:
         incomes = []
         csv_reader = csv.reader(file)
+        next(csv_reader)
         for line in csv_reader:
             for income in line[1]:
                 incomes.append(line[1])
@@ -91,6 +92,9 @@ def line_graph():
         amounts = []
         for income in incomes:
             amounts.append(income["amount"])
+        
+        print(incomes)
+        print(amounts)
 
 
         #Convert each string date to a datetime object for proper comparison
@@ -126,3 +130,5 @@ def line_graph():
 
         # Show the plot
         plt.show()
+
+line_graph()

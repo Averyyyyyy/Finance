@@ -1,2 +1,1 @@
-username,incomes,expenses,goals,amount_in_account
 Samuel,[{"date":"1/5","source": "Job","amount":"456"}],[{"date":"3/12","amount":"45","category":"food"}],[{"goal":6000,"earned":500}],5000000
