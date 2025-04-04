@@ -1,29 +1,42 @@
 #Alex Anderson, Expenses Tracking
 
-# Function expenses_maker
-#     expenses equals an empty list
-#     Display "What is the number of expense sources you have?"
-#     expense_sources equals Input
+import csv
+import ast
+from info import read_info, save_info
 
-#     For the number from 1 to expense_sources do:
-#         Display "Enter expense source name:"
-#         expense_source equals Input
-        
-#         Display "Enter the amount you lose:"
-#         expense_amount equals Input
-        
-#         Display "How often do you lose this amount? (Enter in days, 0 if one-time):"
-#         expense_timeframe equals Input
-        
-#         expense equals {
-#             "source": expense_source,
-#             "amount": expense_amount,
-#             "time": expense_timeframe,
-#             "cap": NULL
-#         }
-        
-#         Append expense to expenses
-#     End For
+# Add expense entries (date, amount, category)
+def expense_entry():
+    row = read_info()
+    expense_list = ast.literal_eval(row[2])  # convert string to list
 
-#     Return expenses to averys save function
-# End the function
+    while True:
+        try:
+            count = int(input("How many expense entries do you want to add?: "))
+            break
+        except:
+            print("That is not a number")
+            continue
+
+    for i in range(count):
+        date = input("Enter the date (YYYY-MM-DD): ")
+        category = input("Enter the expense category: ")
+        while True:
+            try:
+                amount = float(input("Enter the expense amount: "))
+                break
+            except:
+                print("That is not a number")
+                continue
+
+        # create expense dictionary and add it to the list
+        expense = {
+            "date": date,
+            "category": category,
+            "amount": amount
+        }
+
+        expense_list.append(expense)
+
+    row[2] = str(expense_list)
+    save_info(row)
+    return expense_list
