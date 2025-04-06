@@ -1,14 +1,22 @@
 #Alex Anderson, Currency Conversion Feature
 
+# function to convert currencys
 def convert_currency():
-    amount = float(input("Enter the amount to convert: "))
-    currency = input("Enter the currency to convert to (yen, euros, pounds): ")
+    while True:
+        try:
+            amount = float(input("Enter the amount to convert in dollars: "))
+            break
+        except:
+            print("That is not a valid number.")
+            continue
+
+    currency = input("Enter the currency to convert to (yen, euros, or pounds): ")
 
     if currency == "yen":
-        print(f"Amount in yen: {amount * 148.41}")
+        print("Amount in yen:", amount * 148.41)
     elif currency == "euros":
-        print(f"Amount in euros: {amount * 0.92}")
+        print("Amount in euros:", amount * 0.92)
     elif currency == "pounds":
-        print(f"Amount in pounds: {amount * 0.77}")
+        print("Amount in pounds:", amount * 0.77)
     else:
         print("Invalid currency choice.")
