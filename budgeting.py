@@ -1,30 +1,29 @@
 #Alex Anderson, Budgeting
 
-# Function budgeting
-def budgeting(expenses):
-    categorys = {}
-    for expense in expenses:
-        categorys.add(expense["category"])
-#     Display "What category do you want to set a budget for?"
-#     category equals Input
-    print("What category do you want to set a budget for?")
-    for category in categorys:
-        print(category + ", ")
-    
-    category = input()
-    
-#     Display "What amount of money do you want to cap off at?"
-#     cap equals Input
-    
-#     For each expense in expenses, do:
-#         If expense["source"] is equal to category, then
-#             expense["cap"] equals cap
-            
-#             If expense["amount"] is greater than cap, then
-#                 Display "Warning: Your expense exceeds the cap!"
-#             End If
-#         End If
-#     End For
-    
-#     Return category, cap to averys save function
-# End the function
+import csv
+import ast
+from expenses import expense_entry  # Import expense-related function
+from info import read_info, save_info
+
+# Set or update a budget limit for a category
+def set_budget():
+    row = read_info()
+    expense_list = ast.literal_eval(row[2])  # Convert string to list
+
+    category = input("Enter the category you want to set a budget for: ")
+    while True:
+        try:
+            budget_limit = float(input("Enter the budget limit: "))
+            break
+        except:
+            print("That is not a number")
+            continue
+
+    for expense in expense_list:
+        if expense["category"] == category:
+            expense["budget_limit"] = budget_limit
+            print(f"Budget limit for {category} set to {budget_limit}")
+
+    row[2] = str(expense_list)
+    save_info(row)
+    return expense_list

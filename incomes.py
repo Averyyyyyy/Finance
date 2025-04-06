@@ -1,69 +1,101 @@
 #Alex Anderson, Income Tracking
 
 from storing import saving
+from datetime import datetime
+import numpy as np
+import matplotlib.pyplot as plt
+import csv
+import ast
+from info import read_info, save_info
 
-# Function incomes_maker
-def incomes_maker():
+# Add income entries (date, amount, source)
+def income_entry():
+    row = read_info()
+    income_list = ast.literal_eval(row[1])  # convert string to list
 
-#     incomes equals an empty list
-    incomes = []
-
-#     Display "What is the number of income sources you have?"
-#     income_sources equals Input
     while True:
         try:
-            income_sources = int(input("What is the number of income sources you have?: "))
+            count = int(input("How many income entries do you want to add?: "))
             break
         except:
             print("That is not a number")
             continue
 
-#     For the number from 1 to income_sources do:
-    for number in range(income_sources):
-#         Display "Enter income source name:"
-#         income_source equals Input
-        income_date = input("Enter the date that you earned (example: 1/5 (month)/(day) ): ")
-        
-#         Display "Enter the amount this income earns:"
-#         income_amount equals Input
+    for i in range(count):
+        date = input("Enter the date (YYYY-MM-DD): ")
+        source = input("Enter the income source: ")
         while True:
             try:
-                income_source = input("Enter the source of where you got this income: ")
+                amount = float(input("Enter the income amount: "))
                 break
             except:
                 print("That is not a number")
                 continue
-        
-#         Display "How often do you earn this amount? (Enter days, 0 if one-time):"
-#         income_timeframe equals Input
-        while True:
-            try:
-                income_amount = float(input("Enter the amount that it earned: "))
-                break
-            except:
-                print("That is not a number")
-                continue
-        
-#         income equals {
+
+        # create income dictionary and add it to the list
         income = {
-#             "source": income_source,
-            "source": income_source,
-
-#             "amount": income_amount,
-            "amount": income_amount,
-
-#             "time": income_timeframe
-            "date": income_date
-
-#         }
+            "date": date,
+            "source": source,
+            "amount": amount
         }
-        
-#         Append income to incomes
-        incomes.append(income)
 
-#     End For
-# Run Averys Function
-    saving(incomes, 1)
+        income_list.append(income)
 
-# End the function
-    return incomes
+    row[1] = str(income_list)
+    save_info(row)
+    return income_list
+
+
+#--------------Alex's code ends----------------------
+
+
+#--------------Samuel's Code starts-----------------------
+def line_graph():
+    with open("info.csv", "r") as file:
+        incomes = []
+        csv_reader = csv.reader(file)
+        for line in csv_reader:
+            for income in line[1]:
+                incomes.append(line[1])
+
+        dates = []
+        for income in incomes:
+            dates.append(income["date"])
+        amounts = []
+        for income in incomes:
+            amounts.append(income["amount"])
+
+
+        #Convert each string date to a datetime object for proper comparison
+        dates = [datetime.strptime(date, "%m/%d") for date in dates]
+
+        #Sort the dates
+        sorted_dates = sorted(dates)
+
+        #Optionally convert back to string format
+        sorted_dates_str = [date.strftime("%m/%d") for date in sorted_dates]
+
+        # Example data points (x, y)
+        x = np.array(sorted_dates_str)
+        y = np.array(amounts)
+
+        # Fit a line to the data points (1st degree polynomial = line)
+        coefficients = np.polyfit(x, y, 1)
+
+        # Create the fitted line using the coefficients
+        fit_line = np.polyval(coefficients, x)
+
+        # Plot the data points
+        plt.scatter(x, y, color='red', label='Data points')
+
+        # Plot the fitted line
+        plt.plot(x, fit_line, label=f'Fitted line: y = {coefficients[0]:.2f}x + {coefficients[1]:.2f}', color='blue')
+
+        # Add labels and legend
+        plt.xlabel('X-axis')
+        plt.ylabel('Y-axis')
+        plt.title('Predicted trend of incomes')
+        plt.legend()
+
+        # Show the plot
+        plt.show()
