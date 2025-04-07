@@ -7,6 +7,7 @@ from expense import expense_entry
 from budget import set_budget
 from goals import goals_tracker
 from conversion import convert_currency
+from utils import user_placement
 
 #main function
 def main():
@@ -24,14 +25,16 @@ def main():
         while True:
             financechoice = input("Where do you want to go? (1 for income, 2 for expenses, 3 for budgeting, 4 for goals, 5 for conversions, and 6 to go back to the main frame)\n--> ")
 
+            placement = user_placement(username)
+
             if financechoice == "1":
-                income_entry()
+                income_entry(placement)
             elif financechoice == "2":
-                expense_entry()
+                expense_entry(placement)
             elif financechoice == "3":
-                set_budget()
+                set_budget(placement)
             elif financechoice == "4":
-                goals_tracker()
+                goals_tracker(placement)
             elif financechoice == "5":
                 convert_currency()
             elif financechoice == "6":

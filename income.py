@@ -6,10 +6,11 @@ import matplotlib.pyplot as plt
 import csv
 from utils import read_info, save_info, string_to_list_of_dicts, list_of_dicts_to_string
 
-def income_entry():
+def income_entry(placement):
     row = read_info()
     try:
-        income_list = string_to_list_of_dicts(row[1])
+        print(row[placement])
+        income_list = string_to_list_of_dicts(row[placement][1])
     except IndexError:
         print("Malformed income data.")
         income_list = []
@@ -41,9 +42,8 @@ def income_entry():
 
         income_list.append(income)
 
-    row[1] = list_of_dicts_to_string(income_list)
+    row[placement][1] = list_of_dicts_to_string(income_list)
     save_info(row)
-    return income_list
 
 
 #--------------Alex's code ends----------------------

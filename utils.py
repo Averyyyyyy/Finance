@@ -5,6 +5,7 @@ import csv
 def read_info():
     with open("info.csv", "r") as file:
         reader = csv.reader(file)
+        next(reader)
         return [row for row in reader]  # Return all rows as a list of lists
 
 def save_info(data):
@@ -43,3 +44,14 @@ def list_of_dicts_to_string(lst):
     result = result.rstrip(', ')
     result += "]"
     return result
+
+def user_placement(username):
+    row = read_info()
+    placement = -1
+    for item in row:
+        placement += 1
+        print(item[0])
+        print(username)
+        if item[0] == username:
+            print("found!")
+            return placement

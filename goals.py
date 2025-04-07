@@ -3,12 +3,12 @@
 import csv
 from utils import read_info, save_info, string_to_list_of_dicts, list_of_dicts_to_string
 
-def goals_tracker():
+def goals_tracker(placement):
     row = read_info()
     current_goals = []
 
     try:
-        current_goals = string_to_list_of_dicts(row[3])
+        current_goals = string_to_list_of_dicts(row[placement][3])
     except IndexError:
         print("No existing goals found.")
     
@@ -79,6 +79,6 @@ def goals_tracker():
             'earned': earned
         })
 
-    row[3] = list_of_dicts_to_string(current_goals)
+    row[placement][3] = list_of_dicts_to_string(current_goals)
     save_info(row)
     return current_goals

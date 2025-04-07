@@ -3,10 +3,10 @@
 import csv
 from utils import read_info, save_info, string_to_list_of_dicts, list_of_dicts_to_string
 
-def set_budget():
+def set_budget(placement):
     row = read_info()
     try:
-        expense_list = string_to_list_of_dicts(row[2])
+        expense_list = string_to_list_of_dicts(row[placement][2])
     except IndexError:
         print("Error: Malformed expense data.")
         expense_list = []
@@ -25,6 +25,6 @@ def set_budget():
             expense["budget_limit"] = budget_limit
             print("Budget limit for", category, "set to", budget_limit)
 
-    row[2] = list_of_dicts_to_string(expense_list)
+    row[placement][2] = list_of_dicts_to_string(expense_list)
     save_info(row)
     return expense_list

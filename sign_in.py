@@ -26,9 +26,9 @@ def sign_in():
                         break
 
                     #reads all usernames and compares them to user input
-                    with open("login_info.txt", "r") as file:
+                    with open("info.csv", "r") as file:
                         for line in file:
-                            items = line.split(":")
+                            items = line.split(",")
                             if username == items[0]:
                                 loopback = False
                                 break
@@ -56,12 +56,12 @@ def sign_in():
                         break
 
                     #reads all passwords and compares them
-                    with open("login_info.txt", "r") as file:
+                    with open("info.csv", "r") as file:
                         for line in file:
-                            items = line.split(":")
+                            items = line.split(",")
                             if username == items[0]:
                                 #if user input matches
-                                if password == items[1]:
+                                if password == items[5]:
                                     print("Signed in successfully!")
                                     return username
                                 #if user input doesn't match
@@ -89,9 +89,9 @@ def sign_in():
                     continue
 
                 #checks if the username is already taken
-                with open("login_info.txt", "r") as file:
+                with open("info.csv", "r") as file:
                     for line in file:
-                        items = line.split(":")
+                        items = line.split(",")
                         if username == items[0]:
                             print("Username is already taken!")
                             loopback = True
@@ -118,11 +118,9 @@ def sign_in():
                 #if passwords match, input all info
                 if password == confirm_password:
                     print("Username of",username,"and password of",password,"has been inputted successfully!")
-                    with open("login_info.txt", "a") as file:
-                        file.write("\n")
-                        file.write(username+":"+password)
                     with open("info.csv", "a") as file:
-                        file.write("ASHSHSJSGJDJDJGDJDJDJGd")
+                        file.write("\n")
+                        file.write(username+",[],[],[],0,"+password)
                     break
 
                 #if passwords don't match, loop back
