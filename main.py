@@ -4,6 +4,9 @@
 from sign_in import * 
 from incomes import *
 from expenses import *
+from budgeting import *
+from goal import *
+from conversion import *
 
 #main function
 def main():
@@ -24,19 +27,19 @@ def main():
 
             #if the user wants to go to incomes
             if financechoice == "1":
-                incomes_maker()
+                income_entry()
             #if the user wants to go to expenses
             elif financechoice == "2":
-                expenses_maker()
+                expense_entry()
             #if the user wants to go to budgeting
             elif financechoice == "3":
-                budgeting()
+                set_budget()
             #if the user wants to go to goals
             elif financechoice == "4":
-                goals()
+                goals_tracker()
             #if the user wants to go to conversions
             elif financechoice == "5":
-                conversions()
+                convert_currency()
             #if the user wants to exit
             elif financechoice == "6":
                 break

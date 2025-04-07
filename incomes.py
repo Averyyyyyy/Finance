@@ -2,75 +2,48 @@
 
 from storing import load_user_data
 from datetime import datetime
-import csv
 import numpy as np
 import matplotlib.pyplot as plt
+import csv
+import ast
+from info import read_info, save_info
 
-# Function incomes_maker
-def incomes_maker():
+# Add income entries (date, amount, source)
+def income_entry():
+    row = read_info()
+    income_list = ast.literal_eval(row[1])  # convert string to list
 
-#     incomes equals an empty list
-    incomes = []
-
-#     Display "What is the number of income sources you have?"
-#     income_sources equals Input
     while True:
         try:
-            income_sources = int(input("What is the number of income sources you have?: "))
+            count = int(input("How many income entries do you want to add?: "))
             break
         except:
             print("That is not a number")
             continue
 
-#     For the number from 1 to income_sources do:
-    for number in range(income_sources):
-#         Display "Enter income source name:"
-#         income_source equals Input
-        income_source = input("Enter income source name:")
-        
-#         Display "Enter the amount this income earns:"
-#         income_amount equals Input
+    for i in range(count):
+        date = input("Enter the date (YYYY-MM-DD): ")
+        source = input("Enter the income source: ")
         while True:
             try:
-                income_amount = float(input("Enter the amount this income earns: "))
+                amount = float(input("Enter the income amount: "))
                 break
             except:
                 print("That is not a number")
                 continue
-        
-#         Display "How often do you earn this amount? (Enter days, 0 if one-time):"
-#         income_timeframe equals Input
-        while True:
-            try:
-                income_timeframe = int(input("How often do you earn this amount? (Enter days, 0 if it is a one time thing): "))
-                break
-            except:
-                print("That is not a number")
-                continue
-        
-#         income equals {
+
+        # create income dictionary and add it to the list
         income = {
-#             "source": income_source,
-            "source": income_source,
-
-#             "amount": income_amount,
-            "amount": income_amount,
-
-#             "time": income_timeframe
-            "time": income_timeframe
-
-#         }
+            "date": date,
+            "source": source,
+            "amount": amount
         }
-        
-#         Append income to incomes
-        incomes.append(income)
 
-#     End For
-# Run Averys Function
-    load_user_data(incomes)
+        income_list.append(income)
 
-# End the function
-    return incomes
+    row[1] = str(income_list)
+    save_info(row)
+    return income_list
 
 
 #--------------Alex's code ends----------------------
