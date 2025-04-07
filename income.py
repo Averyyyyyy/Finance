@@ -1,38 +1,38 @@
 #Alex Anderson, Income Tracking
 
-from storing import saving
 from datetime import datetime
 import numpy as np
 import matplotlib.pyplot as plt
 import csv
-import ast
-from info import read_info, save_info
+from utils import read_info, save_info, string_to_list_of_dicts, list_of_dicts_to_string
 
-# Add income entries (date, amount, source)
 def income_entry():
     row = read_info()
-    income_list = ast.literal_eval(row[1])  # convert string to list
+    try:
+        income_list = string_to_list_of_dicts(row[1])
+    except IndexError:
+        print("Malformed income data.")
+        income_list = []
 
     while True:
         try:
             count = int(input("How many income entries do you want to add?: "))
             break
-        except:
-            print("That is not a number")
+        except ValueError:
+            print("That is not a valid number.")
             continue
 
-    for i in range(count):
+    for _ in range(count):
         date = input("Enter the date (YYYY-MM-DD): ")
         source = input("Enter the income source: ")
         while True:
             try:
                 amount = float(input("Enter the income amount: "))
                 break
-            except:
-                print("That is not a number")
+            except ValueError:
+                print("That is not a valid number.")
                 continue
 
-        # create income dictionary and add it to the list
         income = {
             "date": date,
             "source": source,
@@ -41,7 +41,7 @@ def income_entry():
 
         income_list.append(income)
 
-    row[1] = str(income_list)
+    row[1] = list_of_dicts_to_string(income_list)
     save_info(row)
     return income_list
 
