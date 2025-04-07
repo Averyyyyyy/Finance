@@ -58,7 +58,7 @@ def main():
                 pie_chart()
             #if the user wants to go to the line graph function
             elif visualizechoice == "2":
-                line_graph()
+                line_graph(username)
             #if the user wants to go to the bar graph function
             elif visualizechoice == "3":
                 bar_graph()
@@ -81,3 +81,8 @@ def main():
         elif choice == "2":
             #goes to visulizations
             visualize()
+        #if the user wants to exit, do so
+        elif choice == "3":
+            return
+
+main()
