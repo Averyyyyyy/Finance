@@ -50,8 +50,5 @@ def user_placement(username):
     placement = -1
     for item in row:
         placement += 1
-        print(item[0])
-        print(username)
         if item[0] == username:
-            print("found!")
             return placement

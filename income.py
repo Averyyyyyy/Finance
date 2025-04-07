@@ -9,7 +9,6 @@ from utils import read_info, save_info, string_to_list_of_dicts, list_of_dicts_t
 def income_entry(placement):
     row = read_info()
     try:
-        print(row[placement])
         income_list = string_to_list_of_dicts(row[placement][1])
     except IndexError:
         print("Malformed income data.")
@@ -24,12 +23,34 @@ def income_entry(placement):
             continue
 
     for _ in range(count):
-        date = input("Enter the date (YYYY-MM-DD): ")
+
+        while True:
+            date = input("Enter the date (YYYY-MM-DD): ")
+            dash_amount = date.count("-")
+            
+            def count_integers(input_string):
+                parts = input_string.split('-')
+                count = 0
+                for part in parts:
+                    if part.strip().isdigit():
+                        count += 1
+                return count
+            
+            number_amount = count_integers(date)
+
+            if dash_amount != 2 or number_amount != 3:
+                print("that is not a correct date.")
+                continue
+
+            else: 
+                break
+
         source = input("Enter the income source: ")
         while True:
             try:
                 amount = float(input("Enter the income amount: "))
                 break
+
             except ValueError:
                 print("That is not a valid number.")
                 continue
