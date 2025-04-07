@@ -1,12 +1,11 @@
 #Alex Anderson, Currency Conversion Feature
 
-# function to convert currencys
 def convert_currency():
     while True:
         try:
             amount = float(input("Enter the amount to convert in dollars: "))
             break
-        except:
+        except ValueError:
             print("That is not a valid number.")
             continue
 

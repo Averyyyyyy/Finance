@@ -1,13 +1,13 @@
 #Alex Anderson, Budgeting
 
-from info import *
+import csv
+from utils import read_info, save_info, string_to_list_of_dicts, list_of_dicts_to_string
 
-# function to set up or update a budget limit for a category
 def set_budget():
-    row = safe_read_info()
+    row = read_info()
     try:
         expense_list = string_to_list_of_dicts(row[2])
-    except:
+    except IndexError:
         print("Error: Malformed expense data.")
         expense_list = []
 
@@ -16,13 +16,12 @@ def set_budget():
         try:
             budget_limit = float(input("Enter the budget limit: "))
             break
-        except:
+        except ValueError:
             print("That is not a valid number.")
             continue
 
-    # set the budget for the category
     for expense in expense_list:
-        if expense["category"] == category:
+        if expense.get("category") == category:
             expense["budget_limit"] = budget_limit
             print("Budget limit for", category, "set to", budget_limit)
 

@@ -4,14 +4,13 @@ from datetime import datetime
 import numpy as np
 import matplotlib.pyplot as plt
 import csv
-from info import *
+from utils import read_info, save_info, string_to_list_of_dicts, list_of_dicts_to_string
 
-# function to add income entries (date, amount, source)
 def income_entry():
-    row = safe_read_info()
+    row = read_info()
     try:
         income_list = string_to_list_of_dicts(row[1])
-    except:
+    except IndexError:
         print("Malformed income data.")
         income_list = []
 
@@ -19,22 +18,21 @@ def income_entry():
         try:
             count = int(input("How many income entries do you want to add?: "))
             break
-        except:
+        except ValueError:
             print("That is not a valid number.")
             continue
 
-    for i in range(count):
+    for _ in range(count):
         date = input("Enter the date (YYYY-MM-DD): ")
         source = input("Enter the income source: ")
         while True:
             try:
                 amount = float(input("Enter the income amount: "))
                 break
-            except:
+            except ValueError:
                 print("That is not a valid number.")
                 continue
 
-        # create income dictionary and add it to the list
         income = {
             "date": date,
             "source": source,
