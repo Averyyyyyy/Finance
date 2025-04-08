@@ -1,9 +1,13 @@
 #Samuel Andelin, Personal Finances
 
 #importing needed functions
-from sign_in import *
-from incomes import *
-from expenses import *
+from sign_in import * 
+from income import income_entry
+from expense import expense_entry
+from budget import set_budget
+from goals import goals_tracker
+from conversion import convert_currency
+from utils import user_placement
 
 #main function
 def main():
@@ -19,28 +23,22 @@ def main():
     #function for going to manage finances
     def finances():
         while True:
-            #choice to go to sections of financing
-            financechoice = input("Where do you want to go? (1 for income, 2 for expenses, 3 for budgeting, 4 for goals, 5 for conversions, and 6 to go back to the main frame)\n-->")
+            financechoice = input("Where do you want to go? (1 for income, 2 for expenses, 3 for budgeting, 4 for goals, 5 for conversions, and 6 to go back to the main frame)\n--> ")
+            
+            placement = user_placement(username)
 
-            #if the user wants to go to incomes
             if financechoice == "1":
-                incomes_maker()
-            #if the user wants to go to expenses
+                income_entry(placement)
             elif financechoice == "2":
-                expenses_maker()
-            #if the user wants to go to budgeting
+                expense_entry(placement)
             elif financechoice == "3":
-                budgeting()
-            #if the user wants to go to goals
+                set_budget(placement)
             elif financechoice == "4":
-                goals()
-            #if the user wants to go to conversions
+                goals_tracker(placement)
             elif financechoice == "5":
-                conversions()
-            #if the user wants to exit
+                convert_currency()
             elif financechoice == "6":
                 break
-            #if the user's input is invalid
             else:
                 print("Invalid input!")
     
@@ -55,7 +53,7 @@ def main():
                 pie_chart()
             #if the user wants to go to the line graph function
             elif visualizechoice == "2":
-                line_graph()
+                line_graph(username)
             #if the user wants to go to the bar graph function
             elif visualizechoice == "3":
                 bar_graph()
@@ -78,3 +76,9 @@ def main():
         elif choice == "2":
             #goes to visulizations
             visualize()
+        #if the user wants to exit, do so
+        elif choice == "3":
+            return
+
+#Runs main
+main()
