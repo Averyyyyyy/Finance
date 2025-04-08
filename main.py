@@ -24,7 +24,7 @@ def main():
     def finances():
         while True:
             financechoice = input("Where do you want to go? (1 for income, 2 for expenses, 3 for budgeting, 4 for goals, 5 for conversions, and 6 to go back to the main frame)\n--> ")
-
+            
             placement = user_placement(username)
 
             if financechoice == "1":

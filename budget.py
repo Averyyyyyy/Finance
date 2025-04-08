@@ -6,7 +6,8 @@ from utils import read_info, save_info, string_to_list_of_dicts, list_of_dicts_t
 def set_budget(placement):
     row = read_info()
     try:
-        expense_list = string_to_list_of_dicts(row[placement][2])
+        print(row)
+        expense_list = string_to_list_of_dicts(row[placement]["expenses"])
     except IndexError:
         print("Error: Malformed expense data.")
         expense_list = []
@@ -25,6 +26,6 @@ def set_budget(placement):
             expense["budget_limit"] = budget_limit
             print("Budget limit for", category, "set to", budget_limit)
 
-    row[placement][2] = list_of_dicts_to_string(expense_list)
+    row[placement]["expenses"] = list_of_dicts_to_string(expense_list)
     save_info(row)
     return expense_list

@@ -9,7 +9,7 @@ from utils import read_info, save_info, string_to_list_of_dicts, list_of_dicts_t
 def income_entry(placement):
     row = read_info()
     try:
-        income_list = string_to_list_of_dicts(row[placement][1])
+        income_list = string_to_list_of_dicts(row[placement]["incomes"])
     except IndexError:
         print("Malformed income data.")
         income_list = []
@@ -63,7 +63,7 @@ def income_entry(placement):
 
         income_list.append(income)
 
-    row[placement][1] = list_of_dicts_to_string(income_list)
+    row[placement]["incomes"] = list_of_dicts_to_string(income_list)
     save_info(row)
 
 

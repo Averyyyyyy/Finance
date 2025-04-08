@@ -8,7 +8,7 @@ def goals_tracker(placement):
     current_goals = []
 
     try:
-        current_goals = string_to_list_of_dicts(row[placement][3])
+        current_goals = string_to_list_of_dicts(row[placement]["goals"])
     except IndexError:
         print("No existing goals found.")
     
@@ -79,6 +79,6 @@ def goals_tracker(placement):
             'earned': earned
         })
 
-    row[placement][3] = list_of_dicts_to_string(current_goals)
+    row[placement]["goals"] = list_of_dicts_to_string(current_goals)
     save_info(row)
     return current_goals

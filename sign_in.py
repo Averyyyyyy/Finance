@@ -61,7 +61,8 @@ def sign_in():
                             items = line.split(",")
                             if username == items[0]:
                                 #if user input matches
-                                if password == items[5]:
+                                print(items[5])
+                                if (password + '\n') == items[5]:
                                     print("Signed in successfully!")
                                     return username
                                 #if user input doesn't match
