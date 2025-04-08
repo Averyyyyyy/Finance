@@ -3,9 +3,12 @@
 #importing needed functions
 from sign_in import * 
 from income import income_entry
+from income import line_graph
 from expense import expense_entry
+from expense import pie_chart
 from budget import set_budget
 from goals import goals_tracker
+from goals import bar_graph
 from conversion import convert_currency
 from utils import user_placement
 
@@ -28,13 +31,13 @@ def main():
             placement = user_placement(username)
 
             if financechoice == "1":
-                income_entry(placement)
+                income_entry(placement,username)
             elif financechoice == "2":
-                expense_entry(placement)
+                expense_entry(placement,username)
             elif financechoice == "3":
                 set_budget(placement)
             elif financechoice == "4":
-                goals_tracker(placement)
+                goals_tracker(placement,username)
             elif financechoice == "5":
                 convert_currency()
             elif financechoice == "6":
@@ -50,13 +53,13 @@ def main():
 
             #if the user wants to go to the pie chart function
             if visualizechoice == "1":
-                pie_chart()
+                pie_chart(username)
             #if the user wants to go to the line graph function
             elif visualizechoice == "2":
                 line_graph(username)
             #if the user wants to go to the bar graph function
             elif visualizechoice == "3":
-                bar_graph()
+                bar_graph(username)
             #if the user wants to exit
             elif visualizechoice == "4":
                 break

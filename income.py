@@ -8,7 +8,7 @@ import csv
 import ast
 from utils import read_info, save_info, string_to_list_of_dicts, list_of_dicts_to_string
 
-def income_entry(placement):
+def income_entry(placement,username):
     row = read_info()
     try:
         income_list = string_to_list_of_dicts(row[placement]["incomes"])
@@ -67,6 +67,7 @@ def income_entry(placement):
 
     row[placement]["incomes"] = list_of_dicts_to_string(income_list)
     save_info(row)
+    line_graph(username)
 
 
 #--------------Alex's code ends----------------------
@@ -139,8 +140,8 @@ def line_graph(username):
                         plt.xticks(tick_pos, rotation=45, ha='right')
 
                         plt.xlabel('Date')
-                        plt.ylabel('Money Amount ($)')
-                        plt.title(f'Money Amount Trend for {username} Over Time')
+                        plt.ylabel('Income Amount ($)')
+                        plt.title(f'Income Amount Trend for {username} Over Time')
                         plt.legend()
                         plt.tight_layout()
                         plt.show()
