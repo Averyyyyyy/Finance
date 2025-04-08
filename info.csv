@@ -1,1 +1,3 @@
-Samuel,[{"date":"1/5","source":"Job","amount":"456"}],[{"date":"3/12","amount":"45","category":"food"}],[{"goal":6000,"earned":500}],5000000
+username,incomes,expenses,goals,current_worth,password
+normal,"[{'date': '1111-11-11', 'source': 'a', 'amount': 1.0}]","[{'date': '1111-11-11', 'category': 'a', 'amount': 1.0}]",[],0,normal
+basic,[],[],[],0,basic
