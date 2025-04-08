@@ -3,43 +3,6 @@
 import csv
 import ast  # For safely evaluating string representations of Python objects
 
-# Read information from CSV file
-def read_info():
-    try:
-        with open("info.csv", "r") as file:
-            reader = csv.DictReader(file)
-            rows = []
-            for row in reader:
-                # Strip spaces from keys to avoid issues with extra spaces in column names
-                row = {key.strip(): value for key, value in row.items()}  # Strip extra spaces from column names
-                # Convert string representations of lists/dicts to actual lists/dicts
-                row['incomes'] = ast.literal_eval(row['incomes'])
-                row['expenses'] = ast.literal_eval(row['expenses'])
-                row['goals'] = ast.literal_eval(row['goals'])
-                row['current_worth'] = int(row['current_worth'])
-                rows.append(row)
-            return rows
-    except Exception as e:
-        print(f"Error reading the CSV file: {e}")
-        return []
-
-# Save information to CSV file
-def save_info(data):
-    try:
-        with open("info.csv", "w", newline="") as file:
-            fieldnames = data[0].keys()  # Get the fieldnames from the first row's keys
-            writer = csv.DictWriter(file, fieldnames=fieldnames)
-            writer.writeheader()  # Write the header (column names)
-            for row in data:
-                # Convert lists/dicts back to their string representations before saving
-                row['incomes'] = row['incomes']
-                row['expenses'] = row['expenses']
-                row['goals'] = row['goals']
-                row['current_worth'] = str(row['current_worth'])  # Ensure it's saved as a string
-            writer.writerows(data)  # Write all rows at once
-    except Exception as e:
-        print(f"Error saving data to CSV: {e}")
-
 # Convert string to list of dictionaries (for goals, incomes, etc.)
 def string_to_list_of_dicts(s):
     try:
@@ -56,6 +19,43 @@ def list_of_dicts_to_string(lst):
     except Exception as e:
         print(f"Error converting list of dicts to string: {e}")
         return "[]"
+
+# Read information from CSV file
+def read_info():
+    try:
+        with open("info.csv", "r", newline="") as file:
+            reader = csv.DictReader(file)
+            rows = []
+            for row in reader:
+                # Strip spaces from keys to avoid issues with extra spaces in column names
+                row = {key.strip(): value for key, value in row.items()}  # Strip extra spaces from column names
+                # Convert string representations of lists/dicts to actual lists/dicts
+                row['incomes'] = string_to_list_of_dicts(row['incomes'])
+                row['expenses'] = string_to_list_of_dicts(row['expenses'])
+                row['goals'] = string_to_list_of_dicts(row['goals'])
+                row['current_worth'] = int(row['current_worth'])
+                rows.append(row)
+            return rows
+    except Exception as e:
+        print(f"Error reading the CSV file: {e}")
+        return []
+
+# Save information to CSV file
+def save_info(data):
+    try:
+        with open("info.csv", "w", newline="") as file:
+            fieldnames = data[0].keys()  # Get the fieldnames from the first row's keys
+            writer = csv.DictWriter(file, fieldnames=fieldnames, quoting=csv.QUOTE_MINIMAL)
+            writer.writeheader()  # Write the header (column names)
+            for row in data:
+                # Convert lists/dicts back to their string representations before saving
+                row['incomes'] = list_of_dicts_to_string(row['incomes'])
+                row['expenses'] = list_of_dicts_to_string(row['expenses'])
+                row['goals'] = list_of_dicts_to_string(row['goals'])
+                row['current_worth'] = str(row['current_worth'])  # Ensure it's saved as a string
+            writer.writerows(data)  # Write all rows at once
+    except Exception as e:
+        print(f"Error saving data to CSV: {e}")
 
 # Find the placement of a user (return the index in the CSV file)
 def user_placement(username):
@@ -79,6 +79,5 @@ def income_entry(placement):
         return
     
     # Access the 'incomes' key correctly and convert it
-    income_list = string_to_list_of_dicts(rows[placement]['incomes'])  
+    income_list = rows[placement]['incomes']  
     print(f"Income list for user {rows[placement]['username']}: {income_list}")
-    # Further processing of income...

@@ -1,3 +1,2 @@
 username,incomes,expenses,goals,current_worth,password
-normal,"[{'date': '1111-11-11', 'source': 'a', 'amount': 1.0}]","[{'date': '1111-11-11', 'category': 'a', 'amount': 1.0}]",[],0,normal
-basic,[],[],[],0,basic
+normal,"[{'date': '1111-11-11', 'source': 'a', 'amount': 1.0}]","[{'date': '1111-11-11', 'category': 'a', 'amount': 1.0}]","[{'goal_name': 'a', 'goal_amount': 1.0, 'earned': 0.0}]",0,normal
