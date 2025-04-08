@@ -1,6 +1,5 @@
 #Alex Anderson, Income Tracking
 
-from storing import load_user_data
 from datetime import datetime
 import numpy as np
 import matplotlib.pyplot as plt
