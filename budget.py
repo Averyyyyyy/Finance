@@ -6,7 +6,6 @@ from utils import read_info, save_info, string_to_list_of_dicts, list_of_dicts_t
 def set_budget(placement):
     row = read_info()
     try:
-        print(row)
         expense_list = string_to_list_of_dicts(row[placement]["expenses"])
     except IndexError:
         print("Error: Malformed expense data.")

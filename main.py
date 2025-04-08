@@ -76,6 +76,9 @@ def main():
         elif choice == "2":
             #goes to visulizations
             visualize()
+        elif choice == "3":
+            print("Thank you for using our program!")
+            return
 
 #Runs main
 main()

@@ -1,39 +1,23 @@
 #Alex Anderson, file that converts,saves, and loads info from csv
 
 import csv
-import ast  # For safely evaluating string representations of Python objects
-
-# Convert string to list of dictionaries (for goals, incomes, etc.)
-def string_to_list_of_dicts(s):
-    try:
-        # Safe parsing of the string using ast.literal_eval
-        return ast.literal_eval(s)
-    except (ValueError, SyntaxError) as e:
-        print(f"Error parsing string to list of dicts: {e} for string: {s}")
-        return []  # Return an empty list if parsing fails
-
-# Convert list of dictionaries back to a string representation
-def list_of_dicts_to_string(lst):
-    try:
-        return str(lst)  # Convert the list of dicts back to a string
-    except Exception as e:
-        print(f"Error converting list of dicts to string: {e}")
-        return "[]"
+import ast
 
 # Read information from CSV file
 def read_info():
     try:
-        with open("info.csv", "r", newline="") as file:
+        with open("info.csv", "r", newline='') as file:
             reader = csv.DictReader(file)
             rows = []
             for row in reader:
                 # Strip spaces from keys to avoid issues with extra spaces in column names
-                row = {key.strip(): value for key, value in row.items()}  # Strip extra spaces from column names
+                row = {key.strip(): value for key, value in row.items()}
+
                 # Convert string representations of lists/dicts to actual lists/dicts
-                row['incomes'] = string_to_list_of_dicts(row['incomes'])
-                row['expenses'] = string_to_list_of_dicts(row['expenses'])
-                row['goals'] = string_to_list_of_dicts(row['goals'])
-                row['current_worth'] = int(row['current_worth'])
+                row['incomes'] = string_to_list_of_dicts(row.get('incomes', '[]'))
+                row['expenses'] = string_to_list_of_dicts(row.get('expenses', '[]'))
+                row['goals'] = string_to_list_of_dicts(row.get('goals', '[]'))
+                row['current_worth'] = int(row.get('current_worth', 0))
                 rows.append(row)
             return rows
     except Exception as e:
@@ -43,41 +27,43 @@ def read_info():
 # Save information to CSV file
 def save_info(data):
     try:
-        with open("info.csv", "w", newline="") as file:
-            fieldnames = data[0].keys()  # Get the fieldnames from the first row's keys
-            writer = csv.DictWriter(file, fieldnames=fieldnames, quoting=csv.QUOTE_MINIMAL)
-            writer.writeheader()  # Write the header (column names)
+        with open("info.csv", "w", newline='') as file:
+            fieldnames = ['username', 'incomes', 'expenses', 'goals', 'current_worth', 'password']
+            writer = csv.DictWriter(file, fieldnames=fieldnames)
+            writer.writeheader()
+
             for row in data:
-                # Convert lists/dicts back to their string representations before saving
-                row['incomes'] = list_of_dicts_to_string(row['incomes'])
-                row['expenses'] = list_of_dicts_to_string(row['expenses'])
-                row['goals'] = list_of_dicts_to_string(row['goals'])
-                row['current_worth'] = str(row['current_worth'])  # Ensure it's saved as a string
-            writer.writerows(data)  # Write all rows at once
+                # Convert back to string form before saving
+                row['incomes'] = list_of_dicts_to_string(row.get('incomes', []))
+                row['expenses'] = list_of_dicts_to_string(row.get('expenses', []))
+                row['goals'] = list_of_dicts_to_string(row.get('goals', []))
+                row['current_worth'] = str(row.get('current_worth', 0))
+                writer.writerow(row)
     except Exception as e:
         print(f"Error saving data to CSV: {e}")
 
+# Convert string to list of dictionaries (for goals, incomes, etc.)
+def string_to_list_of_dicts(s):
+    try:
+        if isinstance(s, list):
+            return s  # Already a list
+        return ast.literal_eval(s)
+    except (ValueError, SyntaxError) as e:
+        print(f"Error parsing string to list of dicts: {e} for string: {s}")
+        return []
+
+# Convert list of dictionaries back to a string representation
+def list_of_dicts_to_string(lst):
+    try:
+        return str(lst)
+    except Exception as e:
+        print(f"Error converting list of dicts to string: {e}")
+        return "[]"
+
 # Find the placement of a user (return the index in the CSV file)
 def user_placement(username):
-    rows = read_info()  # Read all rows
+    rows = read_info()
     for placement, item in enumerate(rows):
-        # Ensure the row has the 'username' column and compare the username
         if item['username'].strip() == username:
             return placement
-    return None  # Return None if username is not found
-
-# Function to handle income entry
-def income_entry(placement):
-    # Ensure that placement is valid and exists
-    if placement is None:
-        print("Error: User not found!")
-        return
-
-    rows = read_info()
-    if placement >= len(rows):
-        print("Error: Invalid placement!")
-        return
-    
-    # Access the 'incomes' key correctly and convert it
-    income_list = rows[placement]['incomes']  
-    print(f"Income list for user {rows[placement]['username']}: {income_list}")
+    return None
