@@ -11,7 +11,7 @@ from utils import user_placement
 
 #main function
 def main():
-    print("Welcome to the personal finanace calculator!")
+    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome to the personal finanace calculator!")
 
     #gets the username/signs in
     username = sign_in()
