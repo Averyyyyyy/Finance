@@ -3,10 +3,10 @@
 import csv
 from utils import read_info, save_info, string_to_list_of_dicts, list_of_dicts_to_string
 
-def expense_entry():
+def expense_entry(placement):
     row = read_info()
     try:
-        expense_list = string_to_list_of_dicts(row[2])
+        expense_list = string_to_list_of_dicts(row[placement]["expenses"])
     except IndexError:
         print("Error: Malformed expense data.")
         expense_list = []
@@ -38,6 +38,5 @@ def expense_entry():
 
         expense_list.append(expense)
 
-    row[2] = list_of_dicts_to_string(expense_list)
+    row[placement]["expenses"] = list_of_dicts_to_string(expense_list)
     save_info(row)
-    return expense_list
