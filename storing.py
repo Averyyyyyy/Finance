@@ -21,4 +21,18 @@ def load_user_data(username):
    except FileNotFoundError:
        print("User file not found. Creating a new one on save.")
 
-# take data from theres and find what the type of data is and save it to the appopeate place
+# Take data from theres and find what the type of data is and save it to the appopeate place
+# Use the word "saving" as the key word to know they are pulling form my code
+
+# Load the new data to the csv file in the correct order
+
+# Take what the index number they give me so I know where that item goes
+    # So expenses is 1 so then the espenses will be the second item in the line on the csv
+
+# A function that can run to whatever they call my function for, so if its like calling it to save the data then I will save it to a csv
+
+# 1. Run the code if someone calls my function
+# 2. Find out what type of data it is and save it in the correct order to the csv
+# 3. Save the data to the csv
+
+#added
